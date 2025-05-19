@@ -25,10 +25,17 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v3
 
+      # Workaround for upload-artifact@v3 error
+      - name: Dummy upload step to prefetch artifact action
+        uses: actions/upload-artifact@v3
+        with:
+          name: dummy
+          path: README.md
+
       - name: Upload GitHub Pages artifact
         uses: actions/upload-pages-artifact@v2
         with:
-          path: '.'  # Change to 'dist' or 'build' if you use a static site generator
+          path: '.'  # Or 'dist' or 'build' as per your project
 
       - name: Deploy to GitHub Pages
         id: deployment
